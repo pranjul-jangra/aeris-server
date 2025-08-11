@@ -20,7 +20,7 @@ export const signup = async (req, res) => {
         const token = jwt.sign({ id: newUser._id }, process.env.TOKEN_SECRET, { expiresIn: "365d" });
 
         const isProd = process.env.ENVIRONMENT === "prod";
-        res.cookie("token", token, { httpOnly: true, secure: isProd, sameSite: isProd ? "strict" : "lax", maxAge: 365 * 24 * 60 * 60 * 1000 });
+        res.cookie("token", token, { httpOnly: true, secure: isProd, sameSite: isProd ? "None" : "Lax", maxAge: 365 * 24 * 60 * 60 * 1000 });
         return res.status(201).json({ message: "Signup successful", isAuthorized: token ? true : false });
 
     } catch (err) {
@@ -46,7 +46,7 @@ export const login = async (req, res) => {
         const token = jwt.sign({ id: user._id, username: user.username }, process.env.TOKEN_SECRET, { expiresIn: "7d" });
 
         const isProd = process.env.ENVIRONMENT === "prod";
-        res.cookie("token", token, { httpOnly: true, secure: isProd, sameSite: isProd ? "strict" : "lax", maxAge: 365 * 24 * 60 * 60 * 1000 });
+        res.cookie("token", token, { httpOnly: true, secure: isProd, sameSite: isProd ? "None" : "Lax", maxAge: 365 * 24 * 60 * 60 * 1000 });
         return res.status(200).json({ message: "Login successful", isAuthorized: token ? true : false });
 
     } catch (err) {
